@@ -1,0 +1,100 @@
+.sq {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  min-width: 0;
+  min-height: 0;
+  z-index: 1;
+}
+
+.sqLbl {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: clamp(0.38rem, 0.85vmin, 0.62rem);
+  font-weight: 700;
+  opacity: 0.85;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sqIco { font-size: clamp(1.1rem, 4.5vmin, 2.4rem); line-height: 1.1; }
+
+.sqTokens {
+  position: absolute;
+  bottom: 2px;
+  left: 1px;
+  right: 1px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  justify-content: center;
+}
+
+.token {
+  width: clamp(16px, 3.8vmin, 38px);
+  height: clamp(16px, 3.8vmin, 38px);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.42rem, 1vmin, 0.72rem);
+  font-weight: bold;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.activeToken {
+  animation: tokenBounce 0.5s ease-in-out infinite alternate;
+  box-shadow: 0 0 8px 3px var(--tok-color, rgba(255,255,255,.8)),
+              0 0 18px rgba(255, 255, 255, 0.4);
+  z-index: 5;
+}
+
+.sqCurHl { animation: sqPulse 1s ease-in-out infinite alternate; z-index: 2; }
+.sqStepFlash { animation: sqFlash 0.22s ease-out; }
+
+.sqReachable {
+  animation: reachablePulse 0.85s ease-in-out infinite alternate;
+  filter: brightness(1.2);
+  z-index: 2;
+}
+
+.sqTarget {
+  box-shadow: 0 0 0 3px #22c55e, 0 0 14px rgba(34,197,94,.65) !important;
+  filter: brightness(1.25);
+  z-index: 3;
+}
+
+.sqEndzone {
+  border-color: rgba(255, 80, 50, 0.75) !important;
+  box-shadow: inset 0 0 10px rgba(255,30,0,.18), 0 0 6px rgba(255,80,50,.35);
+}
+
+/* Square type colors */
+.sqStart    { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+.sqGoal     { background: linear-gradient(135deg, #FFD700, #FFA500); color: #333; }
+.sqDrink    { background: linear-gradient(135deg, #ff8a8a, #ff4d4d); color: #fff; }
+.sqAllDrink { background: linear-gradient(135deg, #ffd1a1, #ff8c42); color: #fff; }
+.sqQuiz     { background: linear-gradient(135deg, #ffe066, #fab005); color: #333; }
+.sqGame     { background: linear-gradient(135deg, #d8b4fe, #9333ea); color: #fff; }
+.sqAdvance  { background: linear-gradient(135deg, #86efac, #22c55e); color: #fff; }
+.sqRetreat  { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #333; }
+.sqElectric { background: linear-gradient(135deg, #FEF08A, #EAB308); color: #333; }
+.sqReversal { background: linear-gradient(135deg, #67E8F9, #06B6D4); color: #fff; }
+.sqKing     { background: linear-gradient(135deg, #FCD34D, #D97706); color: #fff; }
+.sqWarp     { background: linear-gradient(135deg, #C4B5FD, #7C3AED); color: #fff; }
+.sqDeath    { background: linear-gradient(135deg, #6B7280, #111827); color: #fff; }
+
+.sqStart .sqLbl,
+.sqGoal  .sqLbl { font-size: clamp(0.44rem, 0.95vmin, 0.68rem); font-weight: 900; opacity: 1; }
+.sqStart .sqIco,
+.sqGoal  .sqIco { font-size: clamp(1.3rem, 5.5vmin, 2.8rem); }

@@ -1,0 +1,209 @@
+.panel {
+  flex-shrink: 0;
+  width: clamp(160px, 22vw, 280px);
+  height: min(90vh, 56vw);
+  background: rgba(5, 18, 35, 0.85);
+  border: 2px solid rgba(200, 169, 81, 0.4);
+  border-radius: 14px;
+  box-shadow: 0 0 30px rgba(0,0,0,.4), inset 0 0 40px rgba(0,0,0,.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 12px 14px;
+  overflow: hidden;
+}
+
+.title {
+  font-size: clamp(0.9rem, 1.9vmin, 1.3rem);
+  font-weight: 900;
+  background: linear-gradient(45deg, #FF6B35, #FFD700, #FF6B6B, #FF6B35);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleShine 3s linear infinite;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+/* Player bar */
+.pbar { display: flex; flex-direction: column; gap: 5px; width: 100%; }
+
+.pchip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 11px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.pchip.cur { border-color: #FFD700; background: rgba(255, 215, 0, 0.15); }
+
+.pchipDot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
+.pchipInfo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.pchipName {
+  font-size: clamp(0.78rem, 1.55vmin, 1rem);
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pchipPos  { font-size: clamp(0.62rem, 1.18vmin, 0.8rem); opacity: 0.68; }
+.pchipDrink { font-size: clamp(0.7rem, 1.35vmin, 0.88rem); color: #ff8c42; font-weight: 700; white-space: nowrap; flex-shrink: 0; }
+
+/* Turn info */
+.turnInfo { font-size: clamp(0.82rem, 1.75vmin, 1.05rem); font-weight: bold; text-align: center; }
+.turnName { color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,.55); }
+
+/* Dice */
+.diceRow { display: flex; align-items: center; gap: 14px; }
+
+.diceWrapper {
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.diceWrapper:active { transform: scale(0.88); }
+
+.diceResultBox { display: flex; flex-direction: column; align-items: center; min-width: 48px; }
+.diceResultNum {
+  font-size: clamp(1.8rem, 4.2vmin, 2.8rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #FFD700;
+  text-shadow: 0 2px 10px rgba(0,0,0,.5);
+  min-height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pop { animation: numPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.diceResultLabel { font-size: clamp(0.48rem, 0.95vmin, 0.62rem); opacity: 0.7; font-weight: 600; letter-spacing: 0.04em; }
+
+/* Roll/Card buttons */
+.rollCardRow { display: flex; gap: 8px; width: 100%; align-items: stretch; }
+
+.rollBtn {
+  flex: 1;
+  padding: clamp(7px, 1.2vmin, 12px) clamp(14px, 2vmin, 22px);
+  border-radius: 28px;
+  border: none;
+  background: linear-gradient(135deg, #FF6B35, #FF8E53);
+  color: #fff;
+  font-size: clamp(0.76rem, 1.55vmin, 0.95rem);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255,107,53,.4);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.rollBtn:active { transform: scale(0.95); }
+.rollBtn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.cardBtn {
+  flex-shrink: 0;
+  padding: clamp(7px, 1.2vmin, 12px) clamp(8px, 1.4vmin, 14px);
+  border-radius: 28px;
+  border: none;
+  background: linear-gradient(135deg, #C8A951, #FFD700);
+  color: #1a1a1a;
+  font-size: clamp(0.7rem, 1.4vmin, 0.88rem);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(200,169,81,.45);
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.cardBtn:active { transform: scale(0.95); }
+.cardUsed,
+.cardBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  background: linear-gradient(135deg, #555, #777);
+  box-shadow: none;
+  color: #ccc;
+}
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; width: 100%; }
+.leg {
+  font-size: clamp(0.44rem, 0.95vmin, 0.65rem);
+  padding: 2px 6px;
+  border-radius: 7px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+}
+
+.legDrink    { background: #ff4d4d; color: #fff; }
+.legAllDrink { background: #ff8c42; color: #fff; }
+.legGame     { background: #9333ea; color: #fff; }
+.legAdvance  { background: #22c55e; color: #fff; }
+.legRetreat  { background: #94a3b8; color: #333; }
+.legKing     { background: #D97706; color: #fff; }
+.legWarp     { background: #7C3AED; color: #fff; }
+.legDeath    { background: #111827; color: #fff; }
+
+/* Portrait mobile */
+@media (orientation: portrait) and (max-width: 600px) {
+  .panel {
+    width: min(96vw, 46vh);
+    height: auto;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 7px 9px;
+    gap: 6px;
+    overflow: visible;
+  }
+  .title { display: none; }
+  .pbar { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 4px; padding-bottom: 3px; }
+  .pchip { flex-shrink: 0; min-width: 88px; padding: 5px 7px; gap: 5px; }
+  .pchipDot { width: 10px; height: 10px; }
+  .pchipName { font-size: 0.72rem; }
+  .pchipPos  { font-size: 0.58rem; }
+  .pchipDrink { font-size: 0.6rem; }
+  .turnInfo { font-size: 0.88rem; }
+  .rollCardRow { width: 100%; }
+  .rollBtn { padding: 10px; font-size: 0.9rem; }
+  .cardBtn { padding: 10px 12px; font-size: 0.88rem; }
+  .legend { gap: 3px; }
+  .leg { font-size: 0.44rem; padding: 1px 4px; }
+}
+
+/* Landscape small */
+@media (orientation: landscape) and (max-height: 520px) {
+  .panel {
+    width: clamp(118px, 19vw, 200px);
+    height: min(96vh, 54vw);
+    padding: 5px 7px;
+    justify-content: flex-start;
+    gap: 3px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .title { font-size: clamp(0.66rem, 1.38vmin, 0.86rem); margin-bottom: 2px; }
+  .pbar  { gap: 2px; margin-bottom: 2px; }
+  .pchip { padding: 3px 5px; gap: 4px; border-radius: 8px; border-width: 1.5px; }
+  .pchipDot   { width: 9px; height: 9px; }
+  .pchipName  { font-size: clamp(0.56rem, 1.1vmin, 0.74rem); }
+  .pchipPos   { font-size: clamp(0.48rem, 0.92vmin, 0.62rem); }
+  .pchipDrink { font-size: clamp(0.48rem, 0.92vmin, 0.62rem); }
+  .turnInfo { font-size: clamp(0.66rem, 1.3vmin, 0.82rem); margin: 1px 0; }
+  .diceRow { gap: 7px; }
+  .diceResultNum { font-size: clamp(1.2rem, 2.8vmin, 1.8rem); min-height: 1.6rem; }
+  .diceResultBox { min-width: 34px; }
+  .diceResultLabel { font-size: clamp(0.42rem, 0.82vmin, 0.56rem); }
+  .rollBtn { padding: 5px 10px; font-size: clamp(0.62rem, 1.2vmin, 0.78rem); border-radius: 20px; }
+  .cardBtn { padding: 5px 8px;  font-size: clamp(0.58rem, 1.1vmin, 0.72rem); border-radius: 20px; }
+  .legend { gap: 2px; }
+  .leg { font-size: clamp(0.34rem, 0.7vmin, 0.48rem); padding: 1px 3px; }
+}

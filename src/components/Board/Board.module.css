@@ -1,0 +1,47 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 26px;
+  padding: 12px;
+  position: relative;
+  width: min(56vw, 90vh);
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #0d2137 0%, #1a3a52 60%, #0f2d42 100%);
+  border: 5px solid #C8A951;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 2px rgba(200,169,81,.25),
+    0 0 50px rgba(200,169,81,.2),
+    0 8px 40px rgba(0,0,0,.6),
+    inset 0 0 80px rgba(0,0,0,.35);
+}
+
+.routeSvg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* Portrait mobile */
+@media (orientation: portrait) and (max-width: 600px) {
+  .board {
+    width: min(96vw, 46vh);
+    gap: 14px;
+    padding: 8px;
+    border-width: 4px;
+  }
+}
+
+/* Landscape small */
+@media (orientation: landscape) and (max-height: 520px) {
+  .board {
+    width: min(54vw, 96vh);
+    gap: 10px;
+    padding: 6px;
+    border-width: 3px;
+  }
+}
