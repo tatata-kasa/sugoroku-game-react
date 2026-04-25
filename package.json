@@ -1,8 +1,8 @@
 {
-  "name": "sugoroku-game",
+  "name": "sugoroku-game-react",
   "private": true,
   "version": "0.0.1",
-  "homepage": "https://tatata-kasa.github.io/sugoroku-game",
+  "homepage": "https://tatata-kasa.github.io/sugoroku-game-react",
   "type": "module",
   "scripts": {
     "dev": "vite",
