@@ -50,7 +50,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(({
 
   return (
     <div className={styles.panel}>
-      <div className={styles.title}>🍺 飲みすごろく</div>
+      <div className={styles.title}>🍺 飲みすごろく！</div>
 
       {/* Player bar */}
       <div className={styles.pbar}>
