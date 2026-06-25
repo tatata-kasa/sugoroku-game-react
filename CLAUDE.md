@@ -15,8 +15,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev       # Vite 開発サーバー（HMR）
 npm run build     # 先に tsc -b で型チェック → vite build で dist/ を生成
 npm run preview   # 本番ビルドをローカルで配信
-npm run deploy    # predeploy で build → gh-pages が dist/ を GitHub Pages へ公開
+npm run deploy    # 手動デプロイ: predeploy で build → gh-pages が dist/ を公開
 ```
+
+デプロイは通常 **`master` への push で GitHub Actions が自動実行**されます
+（`.github/workflows/deploy.yml`、公式 Pages アクションで `dist/` を配信）。
+`npm run deploy` は `gh-pages` ブランチへ手動公開するフォールバックです。
 
 **テストフレームワークは未導入**です（Jest/Vitest なし、`npm test` なし）。テストの存在を
 前提にしたり、テストコマンドを創作したりしないこと。変更の確認は `npm run build`（型チェック）
