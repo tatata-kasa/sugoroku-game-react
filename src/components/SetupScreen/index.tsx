@@ -34,7 +34,7 @@ export default function SetupScreen({ onStart }: Props) {
 
   return (
     <div className={styles.setup}>
-      <div className={styles.title}>🍺 飲みすごろく</div>
+      <div className={styles.title}>🍺 飲みすごろく！</div>
       <div className={styles.sub}>のんで・すごろって・生き抜け！🎉</div>
       <div className={styles.card}>
         <div className={styles.label}>プレイヤー数</div>
