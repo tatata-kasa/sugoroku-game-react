@@ -359,7 +359,8 @@ export default function GameScreen({ players, onReset }: Props) {
 
     pendingBonusRef.current = bonus;
     lastRollValRef.current  = rollVal;
-    setLastRoll({ value: rollVal, bonus });
+    // 出目はサイコロのアニメーションが止まってから（handleRollDone で）表示する
+    setLastRoll(null);
 
     sidePanelRef.current?.rollAll([rollVal]);
   };
@@ -370,6 +371,9 @@ export default function GameScreen({ players, onReset }: Props) {
     const rollVal    = lastRollValRef.current;
     const bonus      = pendingBonusRef.current;
     pendingBonusRef.current = 0;
+
+    // サイコロが止まった瞬間に初めて出目を表示する
+    setLastRoll({ value: rollVal, bonus });
 
     const totalSteps = rollVal + bonus;
     const startPos   = posRef.current[pi];
