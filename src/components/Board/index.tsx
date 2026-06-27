@@ -37,6 +37,8 @@ export default function Board({
     while (svg.firstChild) svg.removeChild(svg.firstChild);
 
     const NS = 'http://www.w3.org/2000/svg';
+    // 進行グラデーション: 区間 index に応じて寒色(START)→暖色(GOAL)
+    const routeHue = (i: number) => 205 - Math.min(Math.max(i / (TOTAL - 1), 0), 1) * 190;
     const pts: ({ x: number; y: number } | null)[] = Array.from({ length: TOTAL }, (_, i) => {
       const el = document.getElementById(`sq${i}`);
       if (!el) return null;
@@ -53,6 +55,7 @@ export default function Board({
 
       const isPast = curPos > 0 && i < curPos;
       const isNext = i === curPos;
+      const hue    = routeHue(i);
 
       if (isPast) {
         const line = document.createElementNS(NS, 'line');
@@ -69,7 +72,7 @@ export default function Board({
       const glow = document.createElementNS(NS, 'line');
       glow.setAttribute('x1', a.x.toFixed(1)); glow.setAttribute('y1', a.y.toFixed(1));
       glow.setAttribute('x2', b.x.toFixed(1)); glow.setAttribute('y2', b.y.toFixed(1));
-      glow.setAttribute('stroke', `rgba(200,169,81,${isNext ? '0.42' : '0.28'})`);
+      glow.setAttribute('stroke', `hsla(${hue.toFixed(0)},90%,60%,${isNext ? 0.5 : 0.32})`);
       glow.setAttribute('stroke-width', isNext ? '18' : '12');
       glow.setAttribute('stroke-linecap', 'round');
       svg.appendChild(glow);
@@ -78,7 +81,7 @@ export default function Board({
       const line = document.createElementNS(NS, 'line');
       line.setAttribute('x1', a.x.toFixed(1)); line.setAttribute('y1', a.y.toFixed(1));
       line.setAttribute('x2', b.x.toFixed(1)); line.setAttribute('y2', b.y.toFixed(1));
-      line.setAttribute('stroke', isNext ? 'rgba(255,235,80,1.0)' : 'rgba(230,200,100,0.9)');
+      line.setAttribute('stroke', `hsla(${hue.toFixed(0)},95%,${isNext ? 70 : 62}%,${isNext ? 1 : 0.92})`);
       line.setAttribute('stroke-width', isNext ? '5' : '3.5');
       line.setAttribute('stroke-linecap', 'round');
       if (!isNext) line.style.animation = 'routePulse 1.1s ease-in-out infinite alternate';
@@ -100,12 +103,12 @@ export default function Board({
 
       const triGlow = document.createElementNS(NS, 'polygon');
       triGlow.setAttribute('points', isNext ? '-11,-9 16,0 -11,9' : '-10,-7.5 14,0 -10,7.5');
-      triGlow.setAttribute('fill', `rgba(200,169,81,${isNext ? '0.55' : '0.35'})`);
+      triGlow.setAttribute('fill', `hsla(${hue.toFixed(0)},90%,60%,${isNext ? 0.6 : 0.4})`);
       g.appendChild(triGlow);
 
       const tri = document.createElementNS(NS, 'polygon');
       tri.setAttribute('points', isNext ? '-9,-7.5 13,0 -9,7.5' : '-8,-6 12,0 -8,6');
-      tri.setAttribute('fill', isNext ? 'rgba(255,245,80,1.0)' : 'rgba(245,215,100,0.95)');
+      tri.setAttribute('fill', `hsla(${hue.toFixed(0)},95%,${isNext ? 72 : 64}%,${isNext ? 1 : 0.95})`);
       g.appendChild(tri);
 
       svg.appendChild(g);
@@ -134,21 +137,27 @@ export default function Board({
   return (
     <div ref={boardRef} className={styles.board}>
       <svg ref={svgRef} className={styles.routeSvg} width="100%" height="100%" />
-      {SQUARE_POS.map((pos, idx) => (
-        <Square
-          key={idx}
-          id={`sq${idx}`}
-          index={idx}
-          square={squares[idx]}
-          tokens={squareTokens[idx]}
-          isCurHighlight={positions[curPlayer] === idx}
-          isFlashing={flashingSquare === idx}
-          isReachable={reachableSquares.has(idx)}
-          isTarget={targetSquare === idx}
-          gridColumn={pos.c}
-          gridRow={pos.r}
-        />
-      ))}
+      {SQUARE_POS.map((pos, idx) => {
+        const isCur = positions[curPlayer] === idx;
+        // スポットライト: 現在マス・到達可能マス・着地予定マス以外を dim する
+        const isDimmed = !isCur && !reachableSquares.has(idx) && targetSquare !== idx;
+        return (
+          <Square
+            key={idx}
+            id={`sq${idx}`}
+            index={idx}
+            square={squares[idx]}
+            tokens={squareTokens[idx]}
+            isCurHighlight={isCur}
+            isFlashing={flashingSquare === idx}
+            isReachable={reachableSquares.has(idx)}
+            isTarget={targetSquare === idx}
+            isDimmed={isDimmed}
+            gridColumn={pos.c}
+            gridRow={pos.r}
+          />
+        );
+      })}
     </div>
   );
 }

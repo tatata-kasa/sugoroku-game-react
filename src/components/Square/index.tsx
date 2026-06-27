@@ -18,8 +18,17 @@ interface Props {
   isFlashing: boolean;
   isReachable: boolean;
   isTarget: boolean;
+  isDimmed: boolean;
   gridColumn: number;
   gridRow: number;
+}
+
+// 進行グラデーション: index(0=START)→GOAL で色相を寒色→暖色へ補間。
+// スパイラルは外周→中心の順なので、外周が寒色・中心が暖色の渦巻きヒートマップになる。
+function progressColor(index: number, alpha: number): string {
+  const t = Math.min(Math.max(index / GOAL, 0), 1);
+  const hue = 205 - t * 190; // 205(青) → 15(オレンジ)
+  return `hsla(${hue.toFixed(0)}, 85%, 55%, ${alpha})`;
 }
 
 const TYPE_CLASS: Record<string, string> = {
@@ -40,7 +49,7 @@ const TYPE_CLASS: Record<string, string> = {
 
 export default function Square({
   id, index, square, tokens,
-  isCurHighlight, isFlashing, isReachable, isTarget,
+  isCurHighlight, isFlashing, isReachable, isTarget, isDimmed,
   gridColumn, gridRow,
 }: Props) {
   const isEndZone = index >= 21 && index < GOAL;
@@ -54,13 +63,19 @@ export default function Square({
     isFlashing ? styles.sqStepFlash : '',
     isReachable ? styles.sqReachable : '',
     isTarget ? styles.sqTarget : '',
+    isDimmed ? styles.sqDim : '',
   ].filter(Boolean).join(' ');
 
   return (
     <div
       id={id}
       className={cls}
-      style={{ gridColumn, gridRow }}
+      style={{
+        gridColumn,
+        gridRow,
+        ['--prog-color' as string]: progressColor(index, 0.95),
+        ['--prog-soft' as string]: progressColor(index, 0.5),
+      }}
     >
       <div className={styles.sqLbl}>{label}</div>
       <div className={styles.sqIco}>{square.icon}</div>
