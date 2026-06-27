@@ -45,11 +45,12 @@ export function makeSquares(): SquareData[] {
   const pool: SquareType[] = [
     ...Array<SquareType>(3).fill('drink'),
     ...Array<SquareType>(1).fill('all_drink'),
-    ...Array<SquareType>(11).fill('game'),
+    ...Array<SquareType>(10).fill('game'),
     ...Array<SquareType>(2).fill('advance'),
     ...Array<SquareType>(1).fill('retreat'),
     'king',
     'warp',
+    'reversal',
   ];
   shuffle(pool);
   noAdjacentOf(pool, ['advance', 'retreat']);

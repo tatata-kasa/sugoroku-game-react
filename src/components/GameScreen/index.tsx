@@ -311,20 +311,23 @@ export default function GameScreen({ players, onReset }: Props) {
         break;
       }
       case 'death': {
+        // ペナルティ緩和: スタートではなく盤の左下コーナー(12マス目)まで引き戻す。
+        // デスは GOAL 手前(endZone)で踏むため、12 への後退は必ず後退になる。
+        const DEATH_BACK = 12;
         gRef.current.showModal('💀', 'デスマス', '即死…💀',
-          `${pname}はスタートへ強制送還！罰として1杯必飲！`, '#111827', () => {
+          `${pname}は左下マスまで引き戻し！罰として1杯必飲！`, '#111827', () => {
             gRef.current.flashScreen('rgba(0,0,0,0.92)');
             setTimeout(() => {
               const newPos = [...posRef.current];
-              newPos[pi] = 0;
+              newPos[pi] = DEATH_BACK;
               posRef.current = newPos;
               gRef.current.updateDrinks(pi, 1);
               flushSync(() => setPositions([...newPos]));
-              setFlashingSquare(0);
+              setFlashingSquare(DEATH_BACK);
               setTimeout(() => {
                 setFlashingSquare(null);
-                gRef.current.showModal('🍺', '強制送還完了',
-                  `スタートに戻った${pname}！`, '罰として1杯！',
+                gRef.current.showModal('🍺', '引き戻し完了',
+                  `左下まで戻された${pname}！`, '罰として1杯！',
                   '#ff4d4d', () => gRef.current.nextTurn());
               }, 400);
             }, 350);
