@@ -202,8 +202,10 @@
   .diceResultNum { font-size: clamp(1.2rem, 2.8vmin, 1.8rem); min-height: 1.6rem; }
   .diceResultBox { min-width: 34px; }
   .diceResultLabel { font-size: clamp(0.42rem, 0.82vmin, 0.56rem); }
-  .rollBtn { padding: 5px 10px; font-size: clamp(0.62rem, 1.2vmin, 0.78rem); border-radius: 20px; }
-  .cardBtn { padding: 5px 8px;  font-size: clamp(0.58rem, 1.1vmin, 0.72rem); border-radius: 20px; }
+  /* 横向きは横幅が狭いので、ロール/カードボタンを縦積みにして見切れを防ぐ */
+  .rollCardRow { flex-direction: column; gap: 5px; }
+  .rollBtn { flex: none; width: 100%; padding: 6px 10px; font-size: clamp(0.62rem, 1.2vmin, 0.78rem); border-radius: 18px; }
+  .cardBtn { width: 100%; padding: 6px 10px;  font-size: clamp(0.58rem, 1.1vmin, 0.72rem); border-radius: 18px; }
   .legend { gap: 2px; }
   .leg { font-size: clamp(0.34rem, 0.7vmin, 0.48rem); padding: 1px 3px; }
 }
