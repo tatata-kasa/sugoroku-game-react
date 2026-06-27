@@ -29,6 +29,7 @@ const LEGEND = [
   { cls: styles.legRetreat,  text: '⏪ 戻る' },
   { cls: styles.legKing,     text: '👑 王様' },
   { cls: styles.legWarp,     text: '🌀 ワープ' },
+  { cls: styles.legReversal, text: '🔄 逆転' },
   { cls: styles.legDeath,    text: '💀 デス' },
 ];
 
