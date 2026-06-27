@@ -85,7 +85,7 @@ const SidePanel = forwardRef<SidePanelHandle, Props>(({
             faceColor="#ffffff"
             dotColor="#1a1a1a"
             dieSize={70}
-            rollTime={2.5}
+            rollTime={1.5}
             disableIndividualRollFocus
             defaultRoll={1}
           />
