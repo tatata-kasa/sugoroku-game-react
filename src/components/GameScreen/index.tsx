@@ -210,17 +210,38 @@ export default function GameScreen({ players, onReset }: Props) {
             `${pname}の代わりに${players[ri].name}が飲む！`,
             '#C8A951', () => gRef.current.nextTurn());
         } else {
-          gRef.current.updateDrinks(pi, 1);
-          gRef.current.showModal('🍺', '飲むマス', `${pname}が飲む！`,
+          // たまに（約1/3）本人ではなく他の人が飲むバリエーション。
+          // 少人数で結果的に本人へ戻るのは許容（仕様）。
+          let ti = pi;
+          let title = `${pname}が飲む！`;
+          if (rnd(3) === 0) {
+            switch (rnd(4)) {
+              case 0: ti = (pi - 1 + n) % n; title = `⏪ 前の番の${players[ti].name}が飲む！`; break;
+              case 1: ti = (pi + 1) % n;     title = `⏩ 次の番の${players[ti].name}が飲む！`; break;
+              case 2: ti = (pi + 2) % n;     title = `⏩⏩ 次の次の${players[ti].name}が飲む！`; break;
+              default: ti = rnd(n);          title = `🎯 ランダムで${players[ti].name}が飲む！`; break;
+            }
+          }
+          gRef.current.updateDrinks(ti, 1);
+          gRef.current.showModal('🍺', '飲むマス', title,
             e.body, '#ff4d4d', () => gRef.current.nextTurn());
         }
         break;
       }
       case 'all_drink': {
         const e = pick(ALL_DRINK);
-        gRef.current.updateAllDrinks();
-        gRef.current.showModal('🥂', '全員飲むマス', '全員で乾杯！🥂',
-          e.body, '#ff8c42', () => gRef.current.nextTurn());
+        // たまに（約1/4）「自分以外全員が飲む」バリエーション。
+        if (n >= 2 && rnd(4) === 0) {
+          const newD = drinksRef.current.map((d, i) => (i !== pi ? d + 1 : d));
+          drinksRef.current = newD;
+          setDrinks([...newD]);
+          gRef.current.showModal('🥂', '全員飲むマス', `${pname}は見てるだけ！他の全員で乾杯🥂`,
+            `${pname}以外、全員1杯！`, '#ff8c42', () => gRef.current.nextTurn());
+        } else {
+          gRef.current.updateAllDrinks();
+          gRef.current.showModal('🥂', '全員飲むマス', '全員で乾杯！🥂',
+            e.body, '#ff8c42', () => gRef.current.nextTurn());
+        }
         break;
       }
       case 'game': {
