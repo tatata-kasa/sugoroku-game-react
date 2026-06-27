@@ -85,3 +85,38 @@
 }
 .btn:active { transform: scale(0.97); }
 .btnSafe { background: #51cf66 !important; }
+
+/* 横向き（高さが低い）ではスクロールせず全体が収まるよう要素を圧縮する。
+   アイコンを小さく、重複する見出し（type / playerSelectLabel）を省き、
+   プレイヤー選択は2列グリッドにして縦の高さを半分にする。 */
+@media (orientation: landscape) and (max-height: 520px) {
+  .modal {
+    padding: 12px 20px 16px;
+    border-radius: 18px 18px 0 0;
+    max-height: 96vh;
+  }
+  .icon  { font-size: 1.9rem; margin-bottom: 2px; }
+  .type  { display: none; }
+  .title { font-size: 1.05rem; margin-bottom: 4px; }
+  .body  { font-size: 0.82rem; line-height: 1.4; margin-bottom: 8px; }
+
+  .answer { padding: 8px 12px; margin-bottom: 10px; }
+  .answerText { font-size: 0.92rem; }
+
+  .playerSelect { margin-bottom: 8px; }
+  .playerSelectLabel { display: none; }
+  .playerChecks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .playerCheck { padding: 7px 10px; gap: 7px; border-radius: 9px; }
+  .checkDot  { width: 12px; height: 12px; }
+  .checkName { font-size: 0.82rem; }
+  .checkCount { font-size: 0.64rem; }
+  .confirmBtn { padding: 9px; font-size: 0.9rem; border-radius: 11px; }
+
+  .btnRow { gap: 7px; }
+  .btn { padding: 9px; font-size: 0.92rem; border-radius: 11px; }
+}
